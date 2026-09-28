@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="업무 개선안을 세 전문가가 함께 검토하는 A2A 협업 스튜디오">
+  <title>A2A Review Studio · 에이전트 협업 워크스페이스</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#proposal">검토 제안 입력으로 이동</a>
+  <div class="shell">
+    <header class="topbar">
+      <a href="/" class="brand" aria-label="A2A Review Studio 홈"><span class="brandmark">a<span>2</span>a</span><span>REVIEW STUDIO</span></a>
+      <div class="top-meta"><span class="status-dot"></span><span id="connection">서버 연결 확인 중</span><span class="protocol">A2A 1.0 / JSON-RPC</span></div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div><p class="eyebrow">MULTI-AGENT WORKSPACE <span>01 / REVIEW</span></p>
+          <h1>하나의 제안,<br>세 가지 관점.</h1>
+          <p class="lede">전문가들이 의견을 나누고, 실행 가능한 다음 단계를 정리합니다.</p>
+        </div>
+        <div class="intro-note"><span class="note-line"></span><p>업무 분배부터 상호 피드백까지.<br>에이전트 협업의 과정을 직접 확인하세요.</p><span class="mono">BRIEF → REVIEW → REFINE</span></div>
+      </section>
+
+      <div class="workspace">
+        <aside class="brief-panel">
+          <div class="section-label"><span>01</span><h2>검토할 제안</h2></div>
+          <p class="panel-description">해결할 문제와 생각하고 있는 방법을 적어 주세요.</p>
+          <form id="review-form">
+            <label for="proposal">업무 개선 아이디어</label>
+            <textarea id="proposal" name="proposal" minlength="20" maxlength="4000" required placeholder="어떤 업무를, 어떻게 개선하고 싶나요?&#10;&#10;예: 반복되는 고객 문의를 자동 분류하고 담당자에게 배정하고 싶습니다."></textarea>
+            <div class="input-meta"><span>20자 이상 · 개인정보 없이 입력</span><span id="char-count">0 / 4,000</span></div>
+            <fieldset class="sample-list"><legend>예제로 시작하기</legend>
+              <button type="button" class="sample" data-sample="support"><span>01</span> 고객 문의 자동 분류 <span aria-hidden="true">↗</span></button>
+              <button type="button" class="sample" data-sample="report"><span>02</span> 주간 보고서 자동화 <span aria-hidden="true">↗</span></button>
+              <button type="button" class="sample" data-sample="quality"><span>03</span> 불량 리포트 통합 분석 <span aria-hidden="true">↗</span></button>
+            </fieldset>
+            <label for="mode">실행 모드</label>
+            <select id="mode" name="mode"><option value="demo">데모 · API 키 없이 체험</option><option value="claude" disabled>Claude API · 서버 설정 필요</option></select>
+            <p id="mode-note" class="mode-note">LLM 미사용. 규칙 기반 예시로 협업 구조를 보여줍니다. A2A 통신은 실제로 수행합니다.</p>
+            <button id="start" type="submit" class="primary" disabled><span>검토 시작하기</span><span aria-hidden="true">→</span></button>
+            <p id="form-error" class="error" role="alert" hidden></p>
+          </form>
+          <div class="brief-foot"><span class="mini-icon" aria-hidden="true">↳</span><p>사내 전용 도구 없이 실행됩니다.<br>결과는 사람이 확인하고 활용하세요.</p></div>
+        </aside>
+
+        <div class="review-area">
+          <section class="collaboration">
+            <div class="section-header"><div class="section-label"><span>02</span><h2>에이전트 협업</h2></div><span id="run-status" class="badge">검토 대기</span></div>
+            <div class="flow-stages" aria-label="검토 진행 단계"><span data-stage="draft">1. 관점별 검토</span><i></i><span data-stage="feedback">2. 상호 피드백</span><i></i><span data-stage="synthesize">3. 결과 종합</span></div>
+            <div class="network" id="network">
+              <div class="orchestrator"><span class="node-icon">◎</span><div><strong>Orchestrator</strong><small>업무 분배 · 결과 종합</small></div><span class="node-state" id="orchestrator-state">READY</span></div>
+              <div class="trunk" aria-hidden="true"></div><div class="branch" aria-hidden="true"></div>
+              <div class="experts">
+                <div class="expert" data-agent="technical"><div class="expert-top"><span class="expert-icon">&lt;/&gt;</span><span class="agent-state">대기</span></div><h3>기술 전문가</h3><p>구현 가능성 · 데이터</p><span class="expert-code">TECHNICAL</span></div>
+                <div class="expert" data-agent="business"><div class="expert-top"><span class="expert-icon">₩</span><span class="agent-state">대기</span></div><h3>비용 전문가</h3><p>운영비 · 기대 효과</p><span class="expert-code">BUSINESS</span></div>
+                <div class="expert" data-agent="user"><div class="expert-top"><span class="expert-icon">◉</span><span class="agent-state">대기</span></div><h3>사용자 전문가</h3><p>현업 흐름 · 사용성</p><span class="expert-code">USER</span></div>
+              </div>
+              <div class="peer-line"><span>↔</span><p>전문가 간 A2A 피드백</p><span id="peer-count">0 / 6</span></div>
+            </div>
+            <div class="flow-footer"><span id="live-status" role="status" aria-live="polite">제안을 입력하면 세 전문가의 검토가 시작됩니다.</span><span id="request-count" class="mono">0 MESSAGES</span></div>
+          </section>
+
+          <section class="results" id="results">
+            <div class="section-header"><div class="section-label"><span>03</span><h2>검토 결과</h2></div><a id="download" class="download" hidden>결과 내려받기 ↓</a></div>
+            <div id="result-empty" class="empty-state"><span class="empty-glyph" aria-hidden="true">≋</span><h3>더 나은 결정의 시작</h3><p>기술, 비용, 사용자 관점의 검토와<br>피드백을 반영한 실행안이 여기에 모입니다.</p></div>
+            <div id="result-content" hidden>
+              <p id="result-disclosure" class="disclosure"></p>
+              <div id="run-errors" class="error-box" role="status" hidden></div>
+              <div class="tabs" role="tablist" aria-label="검토 결과 종류">
+                <button role="tab" id="tab-summary" aria-selected="true" aria-controls="result-panel" data-tab="summary">최종 실행안</button>
+                <button role="tab" id="tab-technical" aria-selected="false" aria-controls="result-panel" data-tab="technical" tabindex="-1">기술</button>
+                <button role="tab" id="tab-business" aria-selected="false" aria-controls="result-panel" data-tab="business" tabindex="-1">비용</button>
+                <button role="tab" id="tab-user" aria-selected="false" aria-controls="result-panel" data-tab="user" tabindex="-1">사용자</button>
+              </div>
+              <div id="result-panel" role="tabpanel" aria-labelledby="tab-summary" tabindex="0"></div>
+            </div>
+          </section>
+
+          <details class="trace" id="trace"><summary><span><span class="mono">↳</span> A2A 통신 기록</span><span id="trace-count" class="mono">0 EVENTS</span></summary><p class="trace-note">실제로 교환한 메시지와 응답입니다. 모델의 숨겨진 사고 과정은 표시하지 않습니다.</p><div id="trace-list"><p class="muted">아직 통신 기록이 없습니다.</p></div></details>
+        </div>
+      </div>
+    </main>
+    <footer><span>A2A REVIEW STUDIO</span><p>독립 실행형 에이전트 협업 포트폴리오</p><a href="https://github.com/seokbeomkong/a2a-review-studio" target="_blank" rel="noopener noreferrer">GitHub ↗</a></footer>
+  </div>
+</body>
+</html>
