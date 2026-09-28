@@ -144,17 +144,17 @@ async def orchestrate(run, broker, provider, settings):
             run.status = "partial" if run.errors else "completed"
     except TimeoutError:
         run.errors.append("전체 검토 제한 시간을 초과했습니다. 더 짧은 제안으로 다시 시도하세요.")
-        run.status = "failed"
+        run.status = "partial" if run.reviews else "failed"
     except asyncio.CancelledError:
         run.errors.append("서버 종료로 검토가 중단되었습니다.")
         run.status = "failed"
         raise
     except ProviderError as error:
         run.errors.append(str(error))
-        run.status = "failed"
+        run.status = "partial" if run.reviews else "failed"
     except Exception:
         run.errors.append("검토를 완료하지 못했습니다. 서버 상태를 확인하고 다시 시도하세요.")
-        run.status = "failed"
+        run.status = "partial" if run.reviews else "failed"
     finally:
         run.stage = "done"
 
@@ -201,7 +201,8 @@ def markdown_report(run: ReviewRun) -> str:
         "",
         "## 통신 요약",
         "",
-        f"A2A 1.0 / JSON-RPC / SendMessage 요청 {sum(e['kind'] == 'request' for e in run.events)}건",
+        "A2A 1.0 / JSON-RPC / SendMessage 요청 "
+        f"{sum(e['kind'] == 'request' for e in run.events)}건",
         "Orchestrator → 전문가 초안·수정 요청과 전문가 ↔ 전문가 피드백 요청을 포함합니다.",
         "",
     ]

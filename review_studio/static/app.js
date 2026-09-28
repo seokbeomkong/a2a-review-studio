@@ -26,7 +26,9 @@ async function api(path, options = {}) {
   const response = await fetch(path, { ...options, signal: AbortSignal.timeout(12000) });
   if (!response.ok) {
     const body = await response.json().catch(() => ({}));
-    throw new Error(typeof body.detail === 'string' ? body.detail : '입력과 서버 상태를 확인해 주세요.');
+    const error = new Error(typeof body.detail === 'string' ? body.detail : '입력과 서버 상태를 확인해 주세요.');
+    error.status = response.status;
+    throw error;
   }
   return response.json();
 }
@@ -198,7 +200,15 @@ async function init() {
       try {
         const run = await api(`/api/runs/${saved}`); $('#proposal').value = run.proposal; $('#mode').value = run.mode; updateCount(); $('#mode').dispatchEvent(new Event('change')); render(run);
         if (run.status === 'running') { setBusy(true); await poll(saved); } else sessionStorage.removeItem('studio-run');
-      } catch { sessionStorage.removeItem('studio-run'); setBusy(false); }
+      } catch (error) {
+        if (error.status === 404) {
+          sessionStorage.removeItem('studio-run');
+          showError('이전 결과가 없거나 만료되었습니다. 새 검토를 시작해 주세요.');
+        } else {
+          showError('이전 실행을 불러오지 못했습니다. 실행 ID는 보존했습니다. 연결을 확인한 뒤 새로고침해 주세요.');
+        }
+        setBusy(false);
+      }
     }
   } catch { $('#connection').textContent = '연결 실패'; showError('서버에 연결할 수 없습니다. 서버 실행 후 페이지를 새로고침하세요.'); }
 }

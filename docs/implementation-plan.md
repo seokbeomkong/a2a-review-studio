@@ -9,7 +9,7 @@
 
 ## Global constraints
 
-- Separate repository at `Documents/a2a-review-studio`; existing teaching workspace is untouched.
+- Separate `a2a-review-studio` repository; existing teaching workspace is untouched.
 - Three experts: technical, business, user. One revision round; each expert requests feedback from the other two.
 - Inputs 20–4000 characters; 4 simultaneous runs; 50 retained runs; 1-hour retention; 180-second run deadline.
 - All A2A destinations fixed to the configured loopback base URL; process-local secret authenticates internal execution. Cards declare this requirement. No arbitrary URL or code execution.

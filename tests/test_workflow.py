@@ -88,6 +88,25 @@ async def test_run_deadline_reports_failure():
         assert any("시간" in error for error in result["errors"])
 
 
+class SlowRevision(DemoProvider):
+    async def generate(self, agent, job):
+        if job.phase == "revise":
+            await asyncio.sleep(1)
+        return await super().generate(agent, job)
+
+
+async def test_deadline_preserves_completed_drafts_as_partial():
+    async with (
+        live_server(SlowRevision(0), run_timeout=0.4) as (_, settings),
+        httpx.AsyncClient(base_url=settings.base_url) as client,
+    ):
+        result = await complete_run(client)
+        assert result["status"] == "partial"
+        assert len(result["reviews"]) == 3
+        assert result["summary"] is None
+        assert any("시간" in error for error in result["errors"])
+
+
 async def test_rejects_foreign_origin_unauthed_agent_and_invalid_input():
     async with (
         live_server() as (_, settings),

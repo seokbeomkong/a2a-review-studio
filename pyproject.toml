@@ -17,6 +17,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest==9.1.1", "pytest-asyncio==1.4.0", "ruff==0.16.9"]
+browser = ["playwright==1.63.0"]
 
 [tool.setuptools.packages.find]
 include = ["review_studio*"]
@@ -34,4 +35,3 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP"]
-

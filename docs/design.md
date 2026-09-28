@@ -1,6 +1,6 @@
 # A2A Review Studio 설계안
 
-상태: 사용자 검토용 제안. 아직 구현하거나 GitHub 저장소를 생성하지 않았다.
+상태: 승인된 설계. 실제 구현 범위는 architecture.md, 검증 결과는 verification.md 참고.
 
 ## 목적
 
