@@ -1,6 +1,6 @@
 # A2A Review Studio
 
-Standalone Korean portfolio app showing real A2A HTTP collaboration between three review agents. No company material or internal API dependencies.
+Standalone Korean portfolio app showing real A2A HTTP collaboration between three review agents.
 
 - `review_studio/`: FastAPI app, A2A SDK endpoints/client, bounded orchestration, demo/Claude providers.
 - `review_studio/static/`: dependency-free responsive browser UI.

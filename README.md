@@ -12,7 +12,7 @@ Orchestrator가 세 전문가에게 검토를 요청하고, 전문가들이 서�
 
 ## 실행하기
 
-Python 3.12 이상. H-Chat, 사내 전용 API, 데이터베이스, Node.js 빌드가 필요하지 않습니다.
+Python 3.12 이상에서 실행할 수 있습니다.
 
 ```bash
 git clone https://github.com/seokbeomkong/a2a-review-studio.git
@@ -69,7 +69,7 @@ flowchart TD
 - 한 프로세스에 배치하되 **루프백 HTTP 경계**를 통과합니다. 분산 서비스 운영 실적을 주장하는 프로젝트는 아닙니다.
 - 에이전트 간 메시지의 내용은 이 앱의 `AgentJob` JSON 계약을 텍스트 파트로 전달합니다. A2A가 연결된 모든 외부 에이전트의 업무 형식까지 자동으로 통일해 주는 것은 아닙니다.
 - 모든 전문가를 호출하는 **정해진 순서의 오케스트레이션**입니다. 모델이 임의로 에이전트를 생성하거나 무제한 토론을 실행하지 않습니다.
-- 공식 SDK를 사용하며, 이 구현은 **FastA2A·Deep Agents·MCP를 사용하지 않습니다.** 교안에서 익힌 협업 개념을 독립적인 SDK 구현으로 구성했습니다.
+- 공식 SDK를 사용하며, 이 구현은 **FastA2A·Deep Agents·MCP를 사용하지 않습니다.**
 
 ## Claude 모드
 
@@ -146,5 +146,4 @@ docs/             구조, 검증 기록, 스크린샷, 사용자 검토 가이�
 - [A2A 1.0 명세](https://a2a-protocol.org/v1.0.0/specification/)
 - [Claude Messages API](https://platform.claude.com/docs/en/api/messages/create)
 
-코드·화면·샘플 제안은 이 프로젝트용으로 작성했습니다. 회사 교안 원본이나 사내 전용 프로그램은 포함하지 않습니다.
-
+코드·화면·샘플 제안은 이 프로젝트용으로 작성했습니다.
