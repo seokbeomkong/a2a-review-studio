@@ -31,5 +31,4 @@
 - 실제 스크린리더 사용성: 시맨틱 요소·ARIA·키보드 동작은 확인했지만 보조기기 직접 검사는 하지 않았다.
 - 공개 서버 운영: 외부 배포·로그인·다중 사용자 권한은 이번 범위 밖이다. 로컬 실행으로만 제공한다.
 
-최신 CI 상태는 [GitHub Actions](https://github.com/seokbeomkong/a2a-review-studio/actions)에서 확인할 수 있다. 스크린샷과 샘플 보고서는 데모 결과이며 실무 효과를 입증하는 성과 측정 자료는 아니다.
-
+첫 공개 커밋은 [Windows·Ubuntu CI 모두 통과](https://github.com/seokbeomkong/a2a-review-studio/actions/runs/36385395639)했다. 최신 CI 상태는 [GitHub Actions](https://github.com/seokbeomkong/a2a-review-studio/actions)에서 확인할 수 있다. 스크린샷과 샘플 보고서는 데모 결과이며 실무 효과를 입증하는 성과 측정 자료는 아니다.

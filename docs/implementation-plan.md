@@ -28,29 +28,29 @@
 
 Files: `models.py`, `providers.py`, `config.py`, `tests/test_providers.py`.
 Interface: `ReviewRequest(proposal, mode)`, `AgentJob(run_id, phase, proposal, draft, feedback, author)`, `ReviewContent`, `Provider.generate(agent, job) -> ReviewContent`.
-- [ ] Write tests for empty/oversized input, demo labeling and peer feedback incorporated in revised content, provider output parsing and API failure without fallback.
-- [ ] Run pytest and observe missing implementation failure; implement; repeat until green.
+- [x] Write tests for empty/oversized input, demo labeling and peer feedback incorporated in revised content, provider output parsing and API failure without fallback.
+- [x] Run pytest and observe missing implementation failure; implement; repeat until green.
 
 ## Task 2: real A2A and orchestration
 
 Files: `protocol.py`, `runs.py`, `app.py`, `__main__.py`, `tests/test_workflow.py`.
 Interface: `create_app(settings, provider_factory)`, `POST /api/runs`, `GET /api/runs/{id}`, `GET /api/runs/{id}/report`, `GET /api/config`; SDK cards and JSON-RPC at `/agents/{name}`.
-- [ ] Write network integration tests using a real Uvicorn server: cards, SDK exchange, complete run with six peer feedback calls, isolation, failure, timeout, input rejection, origin/token enforcement and Markdown output.
-- [ ] Observe failures, then implement HTTP transport, executors, run store and APIs. Run the whole suite.
+- [x] Write network integration tests using a real Uvicorn server: cards, SDK exchange, complete run with six peer feedback calls, isolation, failure, timeout, input rejection, origin/token enforcement and Markdown output.
+- [x] Observe failures, then implement HTTP transport, executors, run store and APIs. Run the whole suite.
 
 ## Task 3: browser UI
 
 Files: `static/index.html`, `static/styles.css`, `static/app.js`.
-- [ ] Implement semantic form, samples, live workflow graph, review tabs, final report, export and expandable wire log.
-- [ ] Browser verify full demo, tab switching, new run, download, narrow 390px and wide 1440px layouts; save screenshots. Use textContent for all dynamic text.
+- [x] Implement semantic form, samples, live workflow graph, review tabs, final report, export and expandable wire log.
+- [x] Browser verify full demo, tab switching, new run, download, narrow 390px and wide 1440px layouts; save screenshots. Use textContent for all dynamic text.
 
 ## Task 4: delivery
 
 Files: `README.md`, `docs/review-guide.md`, `docs/architecture.md`, `docs/verification.md`, `.github/workflows/ci.yml`, sample output.
-- [ ] Fresh independent code review; fix important findings with regression tests.
-- [ ] Run pytest, lint, format check, wheel/package smoke check, secret/file inventory check.
-- [ ] Publish only this new repo publicly as `seokbeomkong/a2a-review-studio`, verify remote files and CI.
-- [ ] Give user repository URL, local launch path, review checklist, and exact unverified live-model limitation.
+- [x] Fresh independent code review; fix important findings with regression tests.
+- [x] Run pytest, lint, format check, wheel/package smoke check, secret/file inventory check.
+- [x] Publish only this new repo publicly as `seokbeomkong/a2a-review-studio`, verify remote files and CI.
+- [x] Give user repository URL, local launch path, review checklist, and exact unverified live-model limitation.
 
 ## UI direction
 
